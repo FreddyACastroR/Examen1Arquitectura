@@ -51,6 +51,7 @@ public class ControladorRegistroCita {
      *
      * @param observador Vista que implementa ObservadorVista
      */
+    //agregarObservador(in ObservadorVista): void
     public void agregarObservador(ObservadorVista observador) {
         if (!observadores.contains(observador)) {
             observadores.add(observador);
@@ -63,6 +64,7 @@ public class ControladorRegistroCita {
      *
      * @param observador Vista a eliminar
      */
+    //eliminarObservador(in ObservadorVista): void
     public void eliminarObservador(ObservadorVista observador) {
         observadores.remove(observador);
         System.out.println("Observador eliminado: " + observador.getClass().getSimpleName());
@@ -71,6 +73,7 @@ public class ControladorRegistroCita {
     /**
      * Notifica a todos los observadores cuando se encuentra un paciente.
      */
+    //notificarPacienteEncontrado(in Paciente, in List[Medico]): void
     private void notificarPacienteEncontrado(Paciente paciente, List<Medico> medicos) {
         for (ObservadorVista obs : observadores) {
             obs.notificarPacienteEncontrado(paciente, medicos);
@@ -80,6 +83,7 @@ public class ControladorRegistroCita {
     /**
      * Notifica a todos los observadores cuando se selecciona un mdico.
      */
+    //notificarMedicoSelecconado(in Medico): void
     private void notificarMedicoSeleccionado(Medico medico) {
         for (ObservadorVista obs : observadores) {
             obs.notificarMedicoSeleccionado(medico);
@@ -89,6 +93,7 @@ public class ControladorRegistroCita {
     /**
      * Notifica a todos los observadores cuando se registra una cita.
      */
+    //notificarCitaRegistrada(in Cita): void
     private void notificarCitaRegistrada(Cita cita) {
         for (ObservadorVista obs : observadores) {
             obs.notificarCitaRegistrada(cita);
@@ -98,6 +103,7 @@ public class ControladorRegistroCita {
     /**
      * Notifica a todos los observadores cuando ocurre un error.
      */
+    //notificarError(in String): void
     private void notificarError(String mensaje) {
         for (ObservadorVista obs : observadores) {
             obs.notificarError(mensaje);

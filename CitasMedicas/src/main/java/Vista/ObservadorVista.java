@@ -22,6 +22,7 @@ public interface ObservadorVista {
      * @param paciente Paciente encontrado
      * @param medicos Lista de médicos disponibles
      */
+    //notificarPacienteEncontrado(in Paciente, in List[Medico]): void
     void notificarPacienteEncontrado(Paciente paciente, List<Medico> medicos);
 
     /**
@@ -29,6 +30,7 @@ public interface ObservadorVista {
      *
      * @param medico Medico seleccionado
      */
+    //notificarMedicoSeleccionado(in Medico): void
     void notificarMedicoSeleccionado(Medico medico);
 
     /**
@@ -36,6 +38,7 @@ public interface ObservadorVista {
      *
      * @param cita Cita registrada
      */
+    //notificarCitaRegistrada(in Cita): void
     void notificarCitaRegistrada(Cita cita);
 
     /**

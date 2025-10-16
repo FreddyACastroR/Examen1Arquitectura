@@ -16,10 +16,9 @@ import javax.swing.*;
  */
 public class CitasMedicas {
     public static void main(String[] args) {
-        // Ejecutar la aplicación en el hilo de eventos de Swing
+        
         SwingUtilities.invokeLater(() -> {
-            System.out.println("=== Iniciando Sistema de Registro de Citas Médicas ===");
-            System.out.println("Arquitectura: MVC + Patrón Observer\n");
+            System.out.println("---Iniciando Sistema de Registro de Citas Médicas---");
             
             // Inicializar repositorios (capa de datos)
             PacienteRepository pacienteRepo = new PacienteRepository();

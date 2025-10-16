@@ -257,6 +257,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
      * Establece el controlador y se registra como observador. Implementa el
      * patrón Observer.
      */
+    // setControlador(in ControladorRegistroCita): void
     public void setControlador(ControladorRegistroCita controlador) {
         this.controlador = controlador;
         // Registrarse como observador (patrón Observer)
@@ -268,6 +269,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
      * Implementación de ObservadorVista - Notificación de paciente encontrado.
      * El controlador llama a este método cuando encuentra un paciente.
      */
+    //notificarPacienteEncontrado(in Paciente, in List[Medico]): void
     @Override
     public void notificarPacienteEncontrado(Paciente paciente, List<Medico> medicos) {
         System.out.println("Observer: Notificación recibida - Paciente encontrado");
@@ -279,6 +281,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
      * Implementacin de ObservadorVista - Notificacion de medico seleccionado.
      * El controlador llama a este método cuando se selecciona un médico.
      */
+    //notificarMedicoSeleccionado(in Medico): void
     @Override
     public void notificarMedicoSeleccionado(Medico medico) {
         System.out.println("Observer: Notificación recibida - Médico seleccionado");
@@ -289,6 +292,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
      * Implementación de ObservadorVista - Notificacion de cita registrada. El
      * controlador llama a este método cuando se registra una cita.
      */
+    //notificarCitaRegistrada(in Cita): void
     @Override
     public void notificarCitaRegistrada(Cita cita) {
         System.out.println("Observer: Notificación recibida - Cita registrada");
@@ -309,6 +313,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
     /**
      * Muestra los datos del paciente en el panel correspondiente.
      */
+    //mostrarDatosPaciente(in Paciente): void
     private void mostrarDatosPaciente(Paciente paciente) {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(paciente.getNombre()).append(" ")
@@ -323,6 +328,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
     /**
      * Carga la lista de medicos disponibles.
      */
+    //cargarListaMEdicos(in List[Medico]): void
     private void cargarListaMedicos(List<Medico> medicos) {
         modeloListaMedicos.clear();
         for (Medico medico : medicos) {
@@ -333,6 +339,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
     /**
      * Muestra los detalles del médico seleccionado.
      */
+    //mostrarDetallesMedico(in Medico): void
     private void mostrarDetallesMedico(Medico medico) {
         panelDetallesContenido.setBorder(new TitledBorder("4. Detalles del Médico"));
         txtAreaDetalles.setText(medico.obtenerDetallesCompletos());
@@ -342,6 +349,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
     /**
      * Muestra la confirmacion de la cita registrada.
      */
+    //mostrarConfirmacionCita(in Cita): void
     private void mostrarConfirmacionCita(Cita cita) {
         panelDetallesContenido.setBorder(new TitledBorder("5. Confirmación de Cita"));
         txtAreaDetalles.setText(cita.obtenerDetalles());
@@ -368,6 +376,7 @@ public class VistaRegistroCita extends JFrame implements ObservadorVista {
     /**
      * Limpia todos los campos del formulario.
      */
+    //limpiarFormulario(): void
     private void limpiarFormulario() {
         txtNSS.setText("");
         txtAreaPaciente.setText("");
