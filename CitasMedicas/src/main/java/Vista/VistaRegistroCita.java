@@ -18,11 +18,9 @@ import java.util.List;
  * @author Freddy Ali Castro Roman - 252191
  */
 /**
- * Vista principal para el registro de citas médicas. Implementa la interfaz
- * gráfica con Swing siguiendo el patrón MVC. Contiene paneles para buscar
- * paciente, seleccionar médico y confirmar cita.
+ * Vista principal para el registro de citas
  */
-public class VistaRegistroCita extends JFrame {
+public class VistaRegistroCita extends JFrame implements ObservadorVista {
 
     // Referencia al controlador
     private ControladorRegistroCita controlador;
@@ -52,7 +50,7 @@ public class VistaRegistroCita extends JFrame {
     private JPanel panelDerecho;
 
     /**
-     * Constructor que inicializa la interfaz gráfica.
+     * Constructor que inicializa la interfaz .
      */
     public VistaRegistroCita() {
         configurarVentana();
@@ -61,7 +59,7 @@ public class VistaRegistroCita extends JFrame {
     }
 
     /**
-     * Configura las propiedades básicas de la ventana.
+     * Configura las propiedades de la ventana.
      */
     private void configurarVentana() {
         setTitle("Sistema de Registro de Citas Médicas");
@@ -113,11 +111,8 @@ public class VistaRegistroCita extends JFrame {
         configurarEventos();
     }
 
-    /**
-     * Configura los eventos de los componentes.
-     */
     private void configurarEventos() {
-       
+
         btnBuscar.addActionListener(e -> {
             String nss = txtNSS.getText().trim();
             if (controlador != null) {
@@ -147,14 +142,13 @@ public class VistaRegistroCita extends JFrame {
         btnNuevaCita.addActionListener(e -> {
             if (controlador != null) {
                 controlador.nuevaCita();
+                limpiarFormulario();
             }
         });
     }
 
-    /**
-     * Construye la interfaz completa con todos los paneles.
-     */
     private void construirInterfaz() {
+
         JPanel panelSuperior = crearPanelBusquedaNSS();
         add(panelSuperior, BorderLayout.NORTH);
 
@@ -168,9 +162,6 @@ public class VistaRegistroCita extends JFrame {
         add(panelInferior, BorderLayout.SOUTH);
     }
 
-    /**
-     * Crea el panel de búsqueda de NSS.
-     */
     private JPanel crearPanelBusquedaNSS() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 15));
         panel.setBorder(new TitledBorder("1. Ingresar Número de Seguridad Social"));
@@ -186,22 +177,17 @@ public class VistaRegistroCita extends JFrame {
         return panel;
     }
 
-    /**
-     * Crea el panel izquierdo con datos del paciente y lista de mdicos.
-     */
     private JPanel crearPanelIzquierdo() {
         JPanel panelPrincipal = new JPanel();
         panelPrincipal.setLayout(new BoxLayout(panelPrincipal, BoxLayout.Y_AXIS));
         panelPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel Datos Paciente
         JPanel panelPaciente = new JPanel(new BorderLayout(5, 5));
         panelPaciente.setBorder(new TitledBorder("2. Datos del Paciente"));
         JScrollPane scrollPaciente = new JScrollPane(txtAreaPaciente);
         scrollPaciente.setPreferredSize(new Dimension(350, 100));
         panelPaciente.add(scrollPaciente, BorderLayout.CENTER);
 
-        // Panel Lista Médicos
         JPanel panelMedicos = new JPanel(new BorderLayout(5, 5));
         panelMedicos.setBorder(new TitledBorder("3. Seleccionar Médico"));
         JScrollPane scrollMedicos = new JScrollPane(listaMedicos);
@@ -215,9 +201,6 @@ public class VistaRegistroCita extends JFrame {
         return panelPrincipal;
     }
 
-    /**
-     * Crea el panel derecho que mostrará detalles del médico o confirmación.
-     */
     private JPanel crearPanelDerecho() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -237,9 +220,6 @@ public class VistaRegistroCita extends JFrame {
         return panel;
     }
 
-    /**
-     * Crea el panel para seleccionar fecha y hora de la cita.
-     */
     private JPanel crearPanelFechaHora() {
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
         panel.setBorder(new TitledBorder("Seleccionar Fecha y Hora"));
@@ -261,34 +241,75 @@ public class VistaRegistroCita extends JFrame {
         return panel;
     }
 
-    /**
-     * Crea el panel inferior con información del sistema.
-     */
     private JPanel crearPanelInferior() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBorder(BorderFactory.createEtchedBorder());
 
-        JLabel lblInfo = new JLabel("Sistema de Registro de Citas Médicas - 252191");
-        lblInfo.setFont(new Font("Arial", Font.ITALIC, 12));
+        JLabel lblInfo = new JLabel("Sistema de Registro de Citas Médicas - Arquitectura MVC + Patrón Observer");
+        lblInfo.setFont(new Font("Arial", Font.ITALIC, 10));
         panel.add(lblInfo);
 
         return panel;
     }
 
-    //El controlador llama a estos metodos
+    // metodos del patron observer
     /**
-     * Establece el controlador para esta vista.
+     * Establece el controlador y se registra como observador. Implementa el
+     * patrón Observer.
      */
     public void setControlador(ControladorRegistroCita controlador) {
         this.controlador = controlador;
+        // Registrarse como observador (patrón Observer)
+        this.controlador.agregarObservador(this);
+        System.out.println("Vista registrada como observadora del controlador");
     }
 
     /**
+     * Implementación de ObservadorVista - Notificación de paciente encontrado.
+     * El controlador llama a este método cuando encuentra un paciente.
+     */
+    @Override
+    public void notificarPacienteEncontrado(Paciente paciente, List<Medico> medicos) {
+        System.out.println("Observer: Notificación recibida - Paciente encontrado");
+        mostrarDatosPaciente(paciente);
+        cargarListaMedicos(medicos);
+    }
+
+    /**
+     * Implementacin de ObservadorVista - Notificacion de medico seleccionado.
+     * El controlador llama a este método cuando se selecciona un médico.
+     */
+    @Override
+    public void notificarMedicoSeleccionado(Medico medico) {
+        System.out.println("Observer: Notificación recibida - Médico seleccionado");
+        mostrarDetallesMedico(medico);
+    }
+
+    /**
+     * Implementación de ObservadorVista - Notificacion de cita registrada. El
+     * controlador llama a este método cuando se registra una cita.
+     */
+    @Override
+    public void notificarCitaRegistrada(Cita cita) {
+        System.out.println("Observer: Notificación recibida - Cita registrada");
+        mostrarConfirmacionCita(cita);
+    }
+
+    /**
+     * Implementacion de ObservadorVista - Notificación de error. El controlador
+     * llama a este método cuando ocurre un error.
+     */
+    @Override
+    public void notificarError(String mensaje) {
+        System.out.println("Observer: Notificación recibida - Error: " + mensaje);
+        mostrarError(mensaje);
+    }
+
+    // metodos privados
+    /**
      * Muestra los datos del paciente en el panel correspondiente.
      */
-    
-    //MOSTRARPACIENTE(PACIENTE): VOID
-    public void mostrarDatosPaciente(Paciente paciente) {
+    private void mostrarDatosPaciente(Paciente paciente) {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(paciente.getNombre()).append(" ")
                 .append(paciente.getApellidos()).append("\n");
@@ -300,11 +321,9 @@ public class VistaRegistroCita extends JFrame {
     }
 
     /**
-     * Carga la lista de médicos disponibles.
+     * Carga la lista de medicos disponibles.
      */
-    
-    //cargarListaMedicos(in List[Medico]): void
-    public void cargarListaMedicos(List<Medico> medicos) {
+    private void cargarListaMedicos(List<Medico> medicos) {
         modeloListaMedicos.clear();
         for (Medico medico : medicos) {
             modeloListaMedicos.addElement(medico);
@@ -314,20 +333,16 @@ public class VistaRegistroCita extends JFrame {
     /**
      * Muestra los detalles del médico seleccionado.
      */
-    
-    //mostrarDetallesMedico(in Medico): void
-    public void mostrarDetallesMedico(Medico medico) {
+    private void mostrarDetallesMedico(Medico medico) {
         panelDetallesContenido.setBorder(new TitledBorder("4. Detalles del Médico"));
         txtAreaDetalles.setText(medico.obtenerDetallesCompletos());
         btnConfirmarCita.setEnabled(true);
     }
 
     /**
-     * Muestra la confirmación de la cita registrada.
+     * Muestra la confirmacion de la cita registrada.
      */
-    
-    //mostrarConfirmacionCita(in Cita): void
-    public void mostrarConfirmacionCita(Cita cita) {
+    private void mostrarConfirmacionCita(Cita cita) {
         panelDetallesContenido.setBorder(new TitledBorder("5. Confirmación de Cita"));
         txtAreaDetalles.setText(cita.obtenerDetalles());
 
@@ -343,7 +358,7 @@ public class VistaRegistroCita extends JFrame {
     /**
      * Muestra un mensaje de error al usuario.
      */
-    public void mostrarError(String mensaje) {
+    private void mostrarError(String mensaje) {
         JOptionPane.showMessageDialog(this,
                 mensaje,
                 "Error",
@@ -353,7 +368,7 @@ public class VistaRegistroCita extends JFrame {
     /**
      * Limpia todos los campos del formulario.
      */
-    public void limpiarFormulario() {
+    private void limpiarFormulario() {
         txtNSS.setText("");
         txtAreaPaciente.setText("");
         txtAreaDetalles.setText("");
@@ -368,6 +383,7 @@ public class VistaRegistroCita extends JFrame {
         txtNSS.requestFocus();
     }
 
+    // extra transformadores.
     /**
      * Convierte java.util.Date a LocalDate.
      */

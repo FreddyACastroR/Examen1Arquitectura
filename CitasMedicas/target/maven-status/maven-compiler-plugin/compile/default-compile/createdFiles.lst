@@ -3,6 +3,7 @@ Modelo\Consultorio.class
 Repositorio\PacienteRepository.class
 Modelo\Paciente.class
 Repositorio\CitaRepository.class
+Vista\ObservadorVista.class
 Vista\VistaRegistroCita.class
 Modelo\Medico.class
 com\mycompany\citasmedicas\CitasMedicas.class

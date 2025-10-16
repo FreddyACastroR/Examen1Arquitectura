@@ -4,12 +4,11 @@
 
 package com.mycompany.citasmedicas;
 
-import Controlador.ControladorRegistroCita;
-import Repositorio.CitaRepository;
-import Repositorio.MedicoRepository;
-import Repositorio.PacienteRepository;
 import Vista.VistaRegistroCita;
-
+import Controlador.ControladorRegistroCita;
+import Repositorio.PacienteRepository;
+import Repositorio.MedicoRepository;
+import Repositorio.CitaRepository;
 import javax.swing.*;
 
 /**
@@ -17,25 +16,32 @@ import javax.swing.*;
  */
 public class CitasMedicas {
     public static void main(String[] args) {
-        // Ejecutar la app
+        // Ejecutar la aplicación en el hilo de eventos de Swing
         SwingUtilities.invokeLater(() -> {
-            // Inicializar repositorios 
+            System.out.println("=== Iniciando Sistema de Registro de Citas Médicas ===");
+            System.out.println("Arquitectura: MVC + Patrón Observer\n");
+            
+            // Inicializar repositorios (capa de datos)
             PacienteRepository pacienteRepo = new PacienteRepository();
             MedicoRepository medicoRepo = new MedicoRepository();
             CitaRepository citaRepo = new CitaRepository();
             
-            // Crear la vista
+            // Crear el controlador del patrón Observer)
+            ControladorRegistroCita controlador = new ControladorRegistroCita(
+                pacienteRepo, medicoRepo, citaRepo
+            );
+            
+            // Crear la vista (Observer de Observer)
             VistaRegistroCita vista = new VistaRegistroCita();
             
-            // Crear el controlador conectando vista y repositorios
-            ControladorRegistroCita controlador = new ControladorRegistroCita(
-                vista, pacienteRepo, medicoRepo, citaRepo
-            );
+            // Conectar vista con controlador usando el patrón Observer
+            // La vista se registra como observadora del controlador
+            vista.setControlador(controlador);
             
             // Mostrar la ventana
             vista.setVisible(true);
             
-            System.out.println("Sistema de Registro de Citas Médicas iniciado correctamente.");
+            System.out.println("\n Sistema iniciado correctamente");
         });
     }
 }
