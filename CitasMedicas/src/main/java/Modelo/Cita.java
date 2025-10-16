@@ -57,7 +57,7 @@ public class Cita {
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm");
 
         StringBuilder sb = new StringBuilder();
-        sb.append("=== CITA REGISTRADA ===\n\n");
+        sb.append("-----CITA REGISTRADA-----\n\n");
         sb.append("ID Cita: ").append(idCita).append("\n");
         sb.append("Paciente: ").append(paciente.getNombre()).append(" ")
                 .append(paciente.getApellidos()).append("\n");
