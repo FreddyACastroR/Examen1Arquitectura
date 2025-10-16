@@ -286,6 +286,8 @@ public class VistaRegistroCita extends JFrame {
     /**
      * Muestra los datos del paciente en el panel correspondiente.
      */
+    
+    //MOSTRARPACIENTE(PACIENTE): VOID
     public void mostrarDatosPaciente(Paciente paciente) {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(paciente.getNombre()).append(" ")
@@ -300,6 +302,8 @@ public class VistaRegistroCita extends JFrame {
     /**
      * Carga la lista de médicos disponibles.
      */
+    
+    //cargarListaMedicos(in List[Medico]): void
     public void cargarListaMedicos(List<Medico> medicos) {
         modeloListaMedicos.clear();
         for (Medico medico : medicos) {
@@ -310,6 +314,8 @@ public class VistaRegistroCita extends JFrame {
     /**
      * Muestra los detalles del médico seleccionado.
      */
+    
+    //mostrarDetallesMedico(in Medico): void
     public void mostrarDetallesMedico(Medico medico) {
         panelDetallesContenido.setBorder(new TitledBorder("4. Detalles del Médico"));
         txtAreaDetalles.setText(medico.obtenerDetallesCompletos());
@@ -319,6 +325,8 @@ public class VistaRegistroCita extends JFrame {
     /**
      * Muestra la confirmación de la cita registrada.
      */
+    
+    //mostrarConfirmacionCita(in Cita): void
     public void mostrarConfirmacionCita(Cita cita) {
         panelDetallesContenido.setBorder(new TitledBorder("5. Confirmación de Cita"));
         txtAreaDetalles.setText(cita.obtenerDetalles());
@@ -360,7 +368,6 @@ public class VistaRegistroCita extends JFrame {
         txtNSS.requestFocus();
     }
 
-    // ========== MÉTODOS AUXILIARES ==========
     /**
      * Convierte java.util.Date a LocalDate.
      */

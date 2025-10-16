@@ -71,6 +71,7 @@ public class MedicoRepository {
      *
      * @return Lista de todos los medicos
      */
+    //obtenerTodos(): List<Medico>
     public List<Medico> obtenerTodos() {
         return new ArrayList<>(medicos.values());
     }
@@ -81,6 +82,7 @@ public class MedicoRepository {
      * @param id ID del mdico
      * @return Medico encontrado o null si no existe
      */
+    //obtenerPorID(in int): Medico
     public Medico obtenerPorId(int id) {
         return medicos.get(id);
     }

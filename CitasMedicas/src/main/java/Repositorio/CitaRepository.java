@@ -33,6 +33,7 @@ public class CitaRepository {
      * @param cita Cita a guardar
      * @return La cita guardada con su ID
      */
+    //guardar(in Cita): Cita
     public Cita guardar(Cita cita) {
         citas.add(cita);
         System.out.println("Cita guardada con ID: " + cita.getIdCita());
@@ -45,6 +46,7 @@ public class CitaRepository {
      * @param nss NSS del paciente
      * @return Lista de citas del paciente
      */
+    //obtenerPorPaciente(in String): List<Cita>
     public List<Cita> obtenerPorPaciente(String nss) {
         return citas.stream()
                 .filter(cita -> cita.getPaciente().getNss().equals(nss))

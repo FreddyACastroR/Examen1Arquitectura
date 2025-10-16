@@ -61,6 +61,7 @@ public class ControladorRegistroCita {
      *
      * @param nss Número de Seguridad Social
      */
+    //buscarPacientePorNSS(in String): void
     public void buscarPacientePorNSS(String nss) {
         if (nss == null || nss.trim().isEmpty()) {
             vista.mostrarError("Por favor ingrese un NSS válido");
@@ -96,6 +97,7 @@ public class ControladorRegistroCita {
      *
      * @param idMedico ID del médico seleccionado
      */
+    //seleccionarMedico(in int): void
     public void seleccionarMedico(int idMedico) {
         // Obtener el médico del repositorio
         medicoSeleccionado = medicoRepo.obtenerPorId(idMedico);
@@ -123,6 +125,7 @@ public class ControladorRegistroCita {
      * @param fecha Fecha de la cita
      * @param hora Hora de la cita
      */
+    //registrarCita(in Date, in Time): void
     public void registrarCita(LocalDate fecha, LocalTime hora) {
         // Validar que haya un paciente y médico seleccionados
         if (pacienteActual == null) {

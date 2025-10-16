@@ -52,6 +52,7 @@ public class PacienteRepository {
      * @param nss Nmero de Seguridad Social
      * @return Paciente encontrado o null si no existe
      */
+    //buscarPorNSS(in String): Paciente
     public Paciente buscarPorNSS(String nss) {
         return pacientes.get(nss);
     }
@@ -59,6 +60,7 @@ public class PacienteRepository {
     /**
      * Guarda o actualiza un paciente en el repositorio.
      */
+    //guardar(in Paciente): void
     public void guardar(Paciente paciente) {
         pacientes.put(paciente.getNss(), paciente);
     }
